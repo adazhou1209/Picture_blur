@@ -2,7 +2,7 @@ from PIL import Image, ImageFilter
 import numpy as np
 
 # 圖片物件指派給變數image --> 讀取圖片
-image = Image.open(r'D:\base\cat.jpg')
+image = Image.open(r'E:\cute cat.jpg')
 
 # 定義掃描的核心塊 3*3 
 # 1/9為將周圍值平均化
@@ -32,24 +32,15 @@ for x in range(1, width-1):
         r = sum(p[0] * kernel[i] for i, p in enumerate(pixels) )
         g = sum(p[1] * kernel[i] for i, p in enumerate(pixels) )
         b = sum(p[2] * kernel[i] for i, p in enumerate(pixels) )
-        # p[0] --> 顏色通道
-        # kernel[i+1 + 3*j] 表示kernel是一個3*3矩陣，矩陣每一行由平面中三個連續元素表示 
-        # 其中 +1 為保證kernel中心像素對當前處理的RGB值進行加權
-        # p in enumerate(pixels) --. enumerate為將可遍歷的數據組合成索引序列
-
+        # p[ ] --> 顏色通道 r , g, b 
+        #將3*3的通道顏色值求和，並且進行卷積處理
 
         # 設置模糊圖像中的像素顏色
         blurred_image.putpixel((x, y), (int(r), int(g), int(b)))
-        # picture.putpixel(self, xy, color)數據的讀取及訪問權限 
+        #將上方卷積後處理的影像，儲存其模糊後的顏色
 
 # 將模糊圖像保存到新文件
 blurred_image.save("blurred_example.jpg")
 #顯示模糊圖像
 image.show()
 blurred_image.show()
-
-
-"""
-var = Image.new(mode("RGB"), size("width, height"), color(數值))
-pixels.append(image.getpixel((x+i, y+j)))
-"""
